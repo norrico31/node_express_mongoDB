@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 
 // IMPORT ROUTES 
 const postsRoute = require('./routes/posts');
-
 app.use('/posts', postsRoute);
 
 

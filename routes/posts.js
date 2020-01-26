@@ -19,6 +19,7 @@ router.post('/posting', async(req, res) => {
 
 // GET OR RETRIEVE DATA FROM DATABASE
 router.get('/', async(req, res) => {
+    console.log(req.body);
     try {
         const posts = await Post.find();
         res.json(posts);
