@@ -7,14 +7,18 @@ require('dotenv/config');
 
 // MIDDLEWARES
 //app.use(cors());
-app.use(bodyParser.json());
+
+// BODY PARSER FOR HTML
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended:false }));
+
+
+//BODY PARSER FOR POSTMAN
+//app.use(bodyParser.json());
 
 
 // IMPORT ROUTES 
-const postsRoute = require('./routes/posts');
-app.use('/posts', postsRoute);
-
-
+app.use('/posts', require('./routes/posts'));
 
 
 mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('Connected to DB!'));

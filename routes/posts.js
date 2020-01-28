@@ -1,14 +1,26 @@
 const express = require('express');
+const Joi = require('joi');
 const router = express.Router();
 const Post = require('../models/Post');
 
 // POST OR INSERT TO DATABASE
 router.post('/posting', async(req, res) => {
     console.log(req.body);
+    const schema = {
+        title: Joi.string().min(4).required(),
+        desc: Joi.string().min(4).required()
+    }
+    const result = Joi.validate(req.body, schema);
+    if(result.error) {
+        // 400 bad request
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
     const post = new Post({
         title: req.body.title,
-        description: req.body.description
+        desc: req.body.desc
     });
+    
     try {
         const postSaved = await post.save();
         res.json(postSaved);
